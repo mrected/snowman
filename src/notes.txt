@@ -1,0 +1,45 @@
+Components ---------------------------------
+
+  ----- App.js 
+
+  <Component
+    -- ex [propName]={[fromComponent]}
+    letter={letter}
+    disabled={this.isLetterAlreadyChosen(letter)}
+    letterClicked={this.letterClicked}
+  />
+
+  ----- Component.js
+
+  <component
+    -- ex [attributes]=this.props.[propName]
+    value={this.props.letter}
+    disabled={this.props.disabled}
+    onClick={this.props.letterClicked}
+    {this.props.letter}
+  </component>
+
+  State ---------------------------------
+
+  class App extends Component {
+  constructor(props) {
+    super(props)
+
+    this.state = { 
+      someProp: someData,
+    }
+
+    // functions and variables can be written here
+    // if the need to be used somewhere else in the app
+
+  }
+
+  Writing a function within the app ----------
+
+    <ul>
+      {this.state.[fromState].split('').map((letter, index) => {
+        return <li key={index}>{this.[someFunction](letter)}</li>
+      })}
+    </ul>
+
+  
