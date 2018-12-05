@@ -85,52 +85,44 @@ class App extends Component {
       w: false,
       x: false,
       y: false,
-      z: false
+      z: false,
+      snowmanIndex: 0
     }
-    console.log(words[randomIndex])
   }
 
   shouldShowLetter = letter => {
-    // if we should not show the letter, return _
-
-    // if lettersChosen doeS contain letter
-    // then return an letter
     if (this.isLetterAlreadyChosen(letter)) {
       return letter
     }
-
-    // If we should show the letter, return '_'
     return '_'
   }
 
   letterClicked = event => {
-    console.log(event.target.value)
-
     const letter = event.target.value
 
     if (this.isLetterAlreadyChosen(letter)) {
       return
     }
 
-    // Tell react that the state has changed
     this.setState({
       [letter]: true
     })
+    this.whichSnowman(letter)
   }
 
-  // return the snowman to show
-  whichSnowman = () => {
-    const lettersAlreadyChosen = this.alphabet.filter(
-      letter => this.state[letter]
-    )
-
-    const howManyLettersChosen = lettersAlreadyChosen.length
-
-    if (howManyLettersChosen > 7) {
-      return this.snowmen[7]
-    } else {
-      return this.snowmen[howManyLettersChosen]
+  whichSnowman = letter => {
+    let currentSnowmanIndex = this.state.snowmanIndex
+    let secretWord = [...this.state.secretWord]
+    let letterIndex = secretWord.findIndex(secretLetter => {
+      return secretLetter === letter
+    })
+    if (letterIndex !== -1) {
+      currentSnowmanIndex++
+      this.setState({
+        snowmanIndex: currentSnowmanIndex
+      })
     }
+    return this.snowmen[this.state.snowmanIndex]
   }
 
   isLetterAlreadyChosen = letter => {
